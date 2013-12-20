@@ -126,7 +126,7 @@ def check_version(configfile)
       configfile.printf("#ifndef GSL_1_11_LATER\n#define GSL_1_11_LATER\n#endif\n")
     end    
 
-   if ver >= "1.12.90"
+    if ver >= "1.12.90"
       configfile.printf("#ifndef GSL_1_13_LATER\n#define GSL_1_13_LATER\n#endif\n")
     end
 
