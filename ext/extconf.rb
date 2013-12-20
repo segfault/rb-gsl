@@ -70,6 +70,12 @@ def check_version(configfile)
     puts(ver)
     configfile.printf("#ifndef GSL_VERSION\n#define GSL_VERSION \"#{ver}\"\n#endif\n")
 
+    if ver >= "1.7"
+    else
+      configfile.close
+      raise("Ruby/GSL requires gsl-1.7 or later.")
+    end
+
     if ver >= "0.9.4"
       configfile.printf("#ifndef GSL_0_9_4_LATER\n#define GSL_0_9_4_LATER\n#endif\n")
     else
