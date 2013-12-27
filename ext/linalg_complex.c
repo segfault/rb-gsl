@@ -51,13 +51,21 @@ VALUE rb_gsl_linalg_complex_LU_decomp(int argc, VALUE *argv, VALUE obj)
   case 0:
     p = gsl_permutation_alloc(size);
     gsl_linalg_complex_LU_decomp(m, p, &signum);
-#if RUBY_API_VERSION_MAJOR >= 2 && RUBY_API_VERSION_MIINOR >= 1
-    if (itmp == 1) RBASIC_SET_CLASS_RAW(argv[0], cgsl_matrix_complex_LU);
-    else RBASIC_SET_CLASS_RAW(obj, cgsl_matrix_complex_LU);
-#else
-    if (itmp == 1) RBASIC(argv[0])->klass = cgsl_matrix_complex_LU;
-    else RBASIC(obj)->klass = cgsl_matrix_complex_LU;
+    if (itmp == 1) {
+#ifdef RBASIC_CLASS
+      RBASIC_SET_CLASS(argv[0], cgsl_matrix_complex_LU);
 #endif
+#ifndef RBASIC_CLASS
+      RBASIC(argv[0])->klass = cgsl_matrix_complex_LU;
+#endif
+    } else {
+#ifdef RBASIC_CLASS
+      RBASIC_SET_CLASS(obj, cgsl_matrix_complex_LU);
+#endif
+#ifndef RBASIC_CLASS
+      RBASIC(obj)->klass = cgsl_matrix_complex_LU;
+#endif
+    }
     obj2 = Data_Wrap_Struct(cgsl_permutation, 0, gsl_permutation_free, p);
     return rb_ary_new3(2, obj2, INT2FIX(signum));
     break;
@@ -65,8 +73,21 @@ VALUE rb_gsl_linalg_complex_LU_decomp(int argc, VALUE *argv, VALUE obj)
     CHECK_PERMUTATION(argv[itmp]);
     Data_Get_Struct(argv[itmp], gsl_permutation, p);
     gsl_linalg_complex_LU_decomp(m, p, &signum);
-    if (itmp == 1) RBASIC(argv[0])->klass = cgsl_matrix_complex_LU;
-    else RBASIC(obj)->klass = cgsl_matrix_complex_LU;
+    if (itmp == 1) {
+#ifdef RBASIC_CLASS
+      RBASIC_SET_CLASS(argv[0], cgsl_matrix_complex_LU);
+#endif
+#ifndef RBASIC_CLASS
+      RBASIC(argv[0])->klass = cgsl_matrix_complex_LU;
+#endif
+    } else {
+#ifdef RBASIC_CLASS
+      RBASIC_SET_CLASS(obj, cgsl_matrix_complex_LU);
+#endif
+#ifndef RBASIC_CLASS
+      RBASIC(obj)->klass = cgsl_matrix_complex_LU;
+#endif
+    }
     return INT2FIX(signum);
     break;
   default:
