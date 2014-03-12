@@ -120,6 +120,8 @@ typedef struct nmatrix {
 #define NM_SHAPE0(val)          (NM_STORAGE(val)->shape[0])
 #define NM_SHAPE1(val)          (NM_STORAGE(val)->shape[1])
 
+// from nmatrix
+extern VALUE cNMatrix;
 
 // External API
 extern VALUE rb_nmatrix_dense_create(nm_dtype_t dtype, size_t* shape, size_t rank, void* elements, size_t length);
